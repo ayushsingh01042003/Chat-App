@@ -8,6 +8,7 @@ const app = express();
 const PORT: any = process.env.PORT || 3000;
 
 app.use('/api/auth', authRoutes);
+app.use(express.json());
 
 app.get('/', (req: Request, res: Response) => {
     res.send('Hello TS');
