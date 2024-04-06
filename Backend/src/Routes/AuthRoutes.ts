@@ -3,7 +3,7 @@ import authController from '../Controllers/auth.controller';
 
 const router = Router();
 
-router.get('/SignUp', authController.SignUp);
+router.post('/SignUp', authController.SignUp);
 
 router.post('/SignIn', authController.SignIn);
 
