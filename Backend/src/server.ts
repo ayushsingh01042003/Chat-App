@@ -10,10 +10,6 @@ const PORT: any = process.env.PORT || 3000;
 app.use('/api/auth', authRoutes);
 app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello TS');
-});
-
 app.listen(PORT, () => {
     connectToMongoDB();
     console.log(`Server running on port ${PORT}`);
