@@ -17,7 +17,7 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
             next();
         } else {
             res.status(400).send({
-                msg: "Unauthrized User",
+                msg: "Unauthorized User",
             })
         }
 
