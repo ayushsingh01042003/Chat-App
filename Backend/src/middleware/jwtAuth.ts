@@ -6,25 +6,28 @@ interface DecodedToken {
 }
 
 const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const header_token = req.body.header_token;
-    const token = header_token.split(" ");
-    const jwtToken = token[1];
+    const header_token = req.body.header_token; // Assuming the token is sent in the request body
+    if (!header_token) {
+        return res.status(401).json({ error: "Unauthorized: Missing token in request body" });
+    }
 
     try {
-        const decoded = jwt.verify(jwtToken, process.env.JWT_SECRET as string) as DecodedToken;
+        const decoded = jwt.verify(header_token, process.env.JWT_SECRET as string) as DecodedToken;
+        console.log(decoded);
 
-        if(decoded.userName) {
+        if (decoded.userName) {
+            res.locals.userName = decoded.userName;
             next();
         } else {
             res.status(400).send({
                 msg: "Unauthorized User",
-            })
+            });
         }
-
-    } catch(error) {
+    } catch (error) {
         console.log(error);
+        res.status(401).json({ error: "Unauthorized: Invalid token" });
     }
+};
 
-}
 
 export default authMiddleware;

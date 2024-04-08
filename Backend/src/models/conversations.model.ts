@@ -1,14 +1,14 @@
 import mongoose, {Schema} from "mongoose";
 
 interface Conversations {
-    participants: Schema.Types.ObjectId,
+    participants: String,
     messages: Schema.Types.ObjectId
 }
 
 const conversationSchema = new Schema({
     participants: [
         {
-            type: Schema.Types.ObjectId,
+            type: String,
             ref: "User",
         }
     ],

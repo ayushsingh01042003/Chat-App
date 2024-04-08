@@ -1,19 +1,19 @@
 import mongoose, { Schema } from "mongoose";
 
 interface Message {
-    senderId: Schema.Types.ObjectId,
-    recieverId: Schema.Types.ObjectId,
+    senderId: String,
+    recieverId: String,
     message: String
 }
 
 const messageSchema = new Schema({
     senderId: {
-        type: Schema.Types.ObjectId,
+        type: String,
         ref: "User",
         required: true,
     },
     recieverId: {
-        type: Schema.Types.ObjectId,
+        type: String,
         ref: "User",
         required: true
     },
