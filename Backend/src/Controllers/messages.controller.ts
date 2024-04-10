@@ -37,12 +37,37 @@ class MessageController {
             });
 
             res.status(200).send({
-                msg: `${newMessage} Sent Successfully`,
+                msg: `${createdMessage} Sent Successfully`,
             });
         } catch (error) {
             console.log(error);
         }
 
+    }
+
+    async getMessages(req: Request, res: Response) {
+        try {
+            const { recieverId } = req.params;
+            const senderId = res.locals.userName;
+    
+            const conversation = await Conversation.findOne({
+                participants: { $all: [senderId, recieverId]},
+            }).populate("messages");
+
+            if(!conversation) {
+                return res.status(400).send({
+                    msg: "No Conversation Found",
+                });
+            }
+    
+            const messages = conversation.messages;
+        
+            res.status(200).send({
+                messages
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 
