@@ -3,3 +3,6 @@ Backend/node_modules
 Backend/dist
 Backend/package-lock.json
 Backend/tsconfig.json
+
+Frontend/node_modules
+Frontend/package-lock.json
