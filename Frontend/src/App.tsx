@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button"
+import { ThemeProvider } from "@/components/theme-provider"
 
 function App() {
   return (
-   <div>
-    <Button variant="secondary">Secondary</Button>
-   </div> 
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      hello world
+    </ThemeProvider>
   )
 }
 
