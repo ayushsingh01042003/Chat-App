@@ -25,11 +25,9 @@ const formSchema = z.object({
   confirmPassword: z.string().min(6, {
     message: "Password must be at least 6 characters.",
   }),
-  gender: z.object({
-    type: z.enum(["Male", "Female"], {
-      required_error: "Please select your gender"
-    })
-  })
+  gender: z.enum(["Male", "Female"], {
+    required_error: "Please select your gender"
+  }),
 }).refine((data) => {
   return data.password === data.confirmPassword
 }, {
@@ -46,14 +44,21 @@ const SignUp = () => {
       username: "",
       password: "",
       confirmPassword: "",
+      gender: undefined
     },
   })
   
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values)
+    // Send the form data to the server.
+    fetch("/api/auth/SignUp", {
+     method: "POST",
+     body: JSON.stringify(values),
+     headers: {
+       "Content-Type": "application/json",
+     },
+    })
   }
 
   return (
@@ -111,7 +116,7 @@ const SignUp = () => {
                 >
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
-                      <RadioGroupItem value="all" />
+                      <RadioGroupItem value="Male" />
                     </FormControl>
                     <FormLabel className="font-normal">
                       Male
@@ -119,7 +124,7 @@ const SignUp = () => {
                   </FormItem>
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
-                      <RadioGroupItem value="mentions" />
+                      <RadioGroupItem value="Female" />
                     </FormControl>
                     <FormLabel className="font-normal">
                       Female
