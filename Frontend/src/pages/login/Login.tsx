@@ -77,6 +77,11 @@ const Login = () => {
             </FormItem>
           )}
         />
+
+      <div className="p-2">
+        <a href="/signup"> Don't have an account? </a>
+      </div>
+
         <Button type="submit">Submit</Button>
       </form>
     </Form>

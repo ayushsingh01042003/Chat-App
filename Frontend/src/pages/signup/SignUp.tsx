@@ -25,7 +25,7 @@ const formSchema = z.object({
   confirmPassword: z.string().min(6, {
     message: "Password must be at least 6 characters.",
   }),
-  gender: z.enum(["Male", "Female"], {
+  gender: z.enum(["male", "female"], {
     required_error: "Please select your gender"
   }),
 }).refine((data) => {
@@ -49,16 +49,23 @@ const SignUp = () => {
   })
   
   // 2. Define a submit handler.
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values)
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     // Send the form data to the server.
-    fetch("/api/auth/SignUp", {
+    const res = await fetch("/api/auth/SignUp", {
      method: "POST",
-     body: JSON.stringify(values),
+     body: JSON.stringify({
+      userName: values.username,
+      password: values.password,
+      confirmPassword: values.confirmPassword,
+      gender: values.gender,
+     }),
      headers: {
        "Content-Type": "application/json",
      },
     })
+
+    const data = await res.json();
+    console.log(data); 
   }
 
   return (
@@ -116,7 +123,7 @@ const SignUp = () => {
                 >
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
-                      <RadioGroupItem value="Male" />
+                      <RadioGroupItem value="male" />
                     </FormControl>
                     <FormLabel className="font-normal">
                       Male
@@ -124,7 +131,7 @@ const SignUp = () => {
                   </FormItem>
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
-                      <RadioGroupItem value="Female" />
+                      <RadioGroupItem value="female" />
                     </FormControl>
                     <FormLabel className="font-normal">
                       Female
@@ -142,6 +149,10 @@ const SignUp = () => {
             </FormItem>
           )}
         />
+
+      <div className="p-2">
+        <a href="/login"> Already have an account? </a>
+      </div>
 
         <Button type="submit">Submit</Button>
       </form>
