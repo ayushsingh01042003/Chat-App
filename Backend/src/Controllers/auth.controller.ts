@@ -69,7 +69,8 @@ class authController {
     }
 
     async LogOut(req: Request, res: Response) {
-        res.send('This is LogOut');
+        localStorage.removeItem('token');
+        res.status(200).send({msg: "Logged Out"});
     }
 }
 

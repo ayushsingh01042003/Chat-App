@@ -36,10 +36,21 @@ const Login = () => {
   })
   
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  const onSubmit = async (values: z.infer<typeof formSchema>)  => {
+    const res = await fetch("/api/auth/SignIn", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userName: values.username,
+        password: values.password,
+      }),
+    })
+
+    const data = await res.json(); //JWT token
+    localStorage.setItem("token", data.token);
+    window.location.href = "/"; //Redirect to home
   }
 
   return (
