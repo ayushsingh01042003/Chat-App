@@ -1,6 +1,12 @@
+import Navbar from "./Navbar"
+import Body from "./Body"
+
 const Home = () => {
   return (
-    <div>Home</div>
+    <>
+      <Navbar />
+      <Body />
+    </>
   )
 }
 
