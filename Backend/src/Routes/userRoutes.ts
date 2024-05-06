@@ -4,6 +4,6 @@ import userController from "../Controllers/user.controller";
 
 const router = Router();
 
-router.get('/', authMiddleware, userController.getUsersForSidebar);
+router.post('/', authMiddleware, userController.getUsersForSidebar);
 
 export default router;
