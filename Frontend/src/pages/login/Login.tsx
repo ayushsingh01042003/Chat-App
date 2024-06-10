@@ -48,10 +48,14 @@ const Login = () => {
         password: values.password,
       }),
     })
-
-    const data = await res.json(); //JWT token
-    localStorage.setItem("token", data.token);
-    navigate("/home");
+    
+    if(res.ok) {
+      const data = await res.json(); //JWT token
+      localStorage.setItem("token", data.token);
+      navigate('/');
+    } else {
+      alert("Invalid username or password");
+    }
   }
 
   return (
