@@ -7,6 +7,6 @@ router.post('/SignUp', authController.SignUp);
 
 router.post('/SignIn', authController.SignIn);
 
-router.post('/LogOut', authController.LogOut);
+router.get('/LogOut', authController.LogOut);
 
 export default router;

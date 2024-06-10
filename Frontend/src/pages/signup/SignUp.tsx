@@ -1,9 +1,8 @@
-"use client"
- 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
+import { useNavigate } from "react-router-dom"
 import {
   Form,
   FormControl,
@@ -36,6 +35,7 @@ const formSchema = z.object({
 });
 
 const SignUp = () => {
+  const navigate = useNavigate();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -151,7 +151,7 @@ const SignUp = () => {
         />
 
       <div className="p-2">
-        <a href="/login"> Already have an account? </a>
+        <button onClick={() => navigate('/login')}>Already have an account?</button>
       </div>
 
         <Button type="submit">Submit</Button>

@@ -4,7 +4,7 @@ import authMiddleware from "../middleware/jwtAuth";
 
 const router = Router();
 
-router.get('/get/:recieverId', authMiddleware, messagesController.getMessages);
+router.get('/get/:recieverId', authMiddleware, messagesController.getConversation);
 router.post('/send/:recieverId', authMiddleware, messagesController.sendMessage);
 
 export default router;

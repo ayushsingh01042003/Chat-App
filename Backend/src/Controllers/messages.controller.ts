@@ -45,7 +45,8 @@ class MessageController {
 
     }
 
-    async getMessages(req: Request, res: Response) {
+    //Try Pagination here
+    async getConversation(req: Request, res: Response) {
         try {
             const { recieverId } = req.params;
             const senderId = res.locals.userName;

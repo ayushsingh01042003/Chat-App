@@ -1,8 +1,7 @@
-"use client"
- 
-import { zodResolver } from "@hookform/resolvers/zod"
+ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -25,6 +24,8 @@ const formSchema = z.object({
 })
 
 const Login = () => {
+
+  const navigate = useNavigate();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -50,7 +51,7 @@ const Login = () => {
 
     const data = await res.json(); //JWT token
     localStorage.setItem("token", data.token);
-    window.location.href = "/"; //Redirect to home
+    navigate("/home");
   }
 
   return (
@@ -90,7 +91,7 @@ const Login = () => {
         />
 
       <div className="p-2">
-        <a href="/signup"> Don't have an account? </a>
+        <button onClick={() => navigate('/signup')}>Don't Have an account?</button>
       </div>
 
         <Button type="submit">Submit</Button>

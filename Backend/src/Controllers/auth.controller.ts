@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import User from "../models/user.model";
 import bcryptjs from "bcryptjs";
-import jwt, { Secret } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 class authController {
     async SignUp(req: Request, res: Response) {
@@ -69,7 +69,6 @@ class authController {
     }
 
     async LogOut(req: Request, res: Response) {
-        localStorage.removeItem('token');
         res.status(200).send({msg: "Logged Out"});
     }
 }

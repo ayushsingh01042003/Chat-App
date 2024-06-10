@@ -3,27 +3,27 @@ import { Input } from "@/components/ui/input"
 
 const Conversations = () => {
 
-  useEffect(() => {
-    const fetchConversation = async () => {
-      try {
-        const res = await fetch("http://localhost:3000/api/users/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            header_token: localStorage.getItem('token'),
-          }),
-        })
-        const data = await res.json()
-        console.log(data)
-      } catch (err) {
-        console.log(err)
-      }
-    }
+  // useEffect(() => {
+  //   const fetchConversation = async () => {
+  //     try {
+  //       const res = await fetch("http://localhost:3000/api/users/", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           header_token: localStorage.getItem('token'),
+  //         }),
+  //       })
+  //       const data = await res.json()
+  //       console.log(data)
+  //     } catch (err) {
+  //       console.log(err)
+  //     }
+  //   }
 
-    fetchConversation()
-  }, [])
+  //   fetchConversation()
+  // }, [])
 
   return (
     <>
