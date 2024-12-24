@@ -1,6 +1,4 @@
 import { Request, Response } from "express";
-import Message from "../models/message.model";
-import Conversation from "../models/conversations.model";
 
 class MessageController {
     async sendMessage(req: Request, res: Response) {

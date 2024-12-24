@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
-import User from "../models/user.model";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 class authController {
-    async SignUp(req: Request, res: Response) {
+    async signup(req: Request, res: Response) {
         try {
             const {
                 userName,
@@ -20,7 +19,7 @@ class authController {
             const userExists = await User.findOne({userName});
 
             if(userExists) {
-                res.status(400).send({msg: "User already Exists"});
+                return res.status(400).send({msg: "User already Exists"});
             }
 
             const salt = await bcryptjs.genSalt(10);
@@ -38,15 +37,14 @@ class authController {
 
             await User.create(user);
 
-            res.status(200).send({msg: "User Successfully created"});
+            return res.status(200).send({msg: "User Successfully created"});
 
         } catch(error) {
             console.log(error); //Can be send to logs to be saved
         }
-        
     }
 
-    async SignIn(req: Request, res: Response) {
+    async signin(req: Request, res: Response) {
         const { userName, password } = req.body;
     
         const userExists = await User.findOne({ userName });
@@ -65,11 +63,11 @@ class authController {
         }
     
         const token = jwt.sign({ userName }, secret_key);
-        res.status(200).send({ token });
+        return res.status(200).send({ token });
     }
 
-    async LogOut(req: Request, res: Response) {
-        res.status(200).send({msg: "Logged Out"});
+    async logout(req: Request, res: Response) {
+        return res.status(200).send({msg: "Logged Out"});
     }
 }
 

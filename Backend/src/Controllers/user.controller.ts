@@ -1,6 +1,4 @@
 import { Request, Response } from "express"
-import User from '../models/user.model';
-
 
 class UserController {
     async getUsersForSidebar(req: Request, res: Response) {
