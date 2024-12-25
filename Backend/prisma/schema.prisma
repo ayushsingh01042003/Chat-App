@@ -12,3 +12,50 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  user_id         Int       @id @default(autoincrement())
+  email           String    @unique
+  password_hash   String
+  username        String
+  profile_pic     String?
+  bio             String?
+  created_at      DateTime  @default(now())
+  
+  messages        Message[]
+  chat_users      Chat_User[]
+}
+
+model Chat {
+  chat_id   Int     @id @default(autoincrement())
+  type      Type
+
+  messages  Message[]
+  chat_users Chat_User[]
+}
+
+model Chat_User {
+  chat_id Int
+  user_id Int
+
+  chat    Chat   @relation(fields: [chat_id], references: [chat_id])
+  user    User   @relation(fields: [user_id], references: [user_id])
+
+  @@id([chat_id, user_id])
+}
+
+model Message {
+  message_id      Int       @id @default(autoincrement())
+  sender_id       Int
+  chat_id         Int
+  message_content String
+  timestamp       DateTime  @default(now())
+
+  sender          User     @relation(fields: [sender_id], references: [user_id])
+  chat            Chat     @relation(fields: [chat_id], references: [chat_id])
+}
+
+enum Type {
+  PERSONAL
+  GROUP
+}
