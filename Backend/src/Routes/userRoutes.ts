@@ -1,9 +1,9 @@
-import { Router } from "express";
-import authMiddleware from "../middleware/jwtAuth";
-import userController from "../Controllers/user.controller";
+// import { Router } from "express";
+// import authMiddleware from "../middleware/jwtAuth";
+// import userController from "../Controllers/user.controller";
 
-const router = Router();
+// const router = Router();
 
-router.post('/', authMiddleware, userController.getUsersForSidebar);
+// router.post('/', authMiddleware, userController.getUsersForSidebar);
 
-export default router;
+// export default router;
