@@ -1,9 +1,9 @@
-// import { Router } from "express";
-// import authMiddleware from "../middleware/jwtAuth";
-// import userController from "../Controllers/user.controller";
+import { Router } from "express";
+import authMiddleware from "../middleware/jwtAuth";
+import userController from "../Controllers/user.controller";
 
-// const router = Router();
+const router = Router();
 
-// router.post('/', authMiddleware, userController.getUsersForSidebar);
+router.put('/updateBio', authMiddleware, userController.updateBio)
 
-// export default router;
+export default router;

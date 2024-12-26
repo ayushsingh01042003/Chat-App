@@ -1,21 +1,17 @@
 import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 
-interface DecodedToken {
-    userName: String,
-}
-
 const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const header_token = req.body.header_token; // Assuming the token is sent in the request body
-    if (!header_token) {
-        return res.status(401).json({ error: "Unauthorized: Missing token in request body" });
+    const jwt_token = req.cookies.jwt;
+    if (!jwt_token) {
+        return res.status(401).json({ error: "Unauthorized: Missing token" });
     }
 
     try {
-        const decoded = jwt.verify(header_token, process.env.JWT_SECRET as string) as DecodedToken;
+        const decodedUser = jwt.verify(jwt_token, process.env.JWT_SECRET as string);
         
-        if (decoded.userName) {
-            res.locals.userName = decoded.userName;
+        if (decodedUser) {
+            res.locals.currUser = decodedUser;
             next();
         } else {
             res.status(400).send({

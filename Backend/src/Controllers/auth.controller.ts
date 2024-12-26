@@ -70,7 +70,7 @@ class authController {
                 throw new Error('JWT_SECRET is not defined');
             }
 
-            const token = jwt.sign({ userExists }, secret_key);
+            const token = jwt.sign(userExists, secret_key);
             return res
                     .status(200)
                     .cookie('jwt', token, {
@@ -91,7 +91,7 @@ class authController {
 
     async logout(req: Request, res: Response) {
         return res
-                .status(200)
+                .status(204)
                 .clearCookie('jwt')
                 .send("Logged Out successfully");
     }
