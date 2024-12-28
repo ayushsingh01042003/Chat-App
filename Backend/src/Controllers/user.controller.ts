@@ -6,7 +6,7 @@ class UserController {
         const { content } = req.body;
         try {
             const currUser = res.locals.currUser;
-            console.log(currUser);
+            
             const updatedUser = await prisma.user.update({
                 where: {
                     email: currUser.email, 
@@ -15,12 +15,12 @@ class UserController {
                     bio: content,
                 }
             });
-            console.log(updatedUser);
+
             return res
                     .status(200)
                     .send(updatedUser);
+
         } catch (error) {
-            console.log(error);
             return res
                     .status(400)
                     .send({

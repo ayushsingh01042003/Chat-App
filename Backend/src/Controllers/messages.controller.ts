@@ -1,4 +1,5 @@
 // import { Request, Response } from "express";
+// import prisma from "../utils";
 
 // class MessageController {
 //     async sendMessage(req: Request, res: Response) {

@@ -2,6 +2,7 @@ import express, { Express } from "express";
 import authRoutes from './Routes/AuthRoutes'
 // import messageRoutes from "./Routes/messageRoutes"
 import userRoutes from './Routes/userRoutes';
+import chatRoutes from './Routes/chatRoutes'
 import cors from 'cors';
 import cookieParser from "cookie-parser";
 import createWebSocketServer from "./sockets/websocketServer";
@@ -15,6 +16,7 @@ app.use(cors());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/chats', chatRoutes);
 // app.use('/api/messages', messageRoutes);
 
 const server = app.listen(PORT, () => {
