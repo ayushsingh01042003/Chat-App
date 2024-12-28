@@ -93,7 +93,7 @@ class ChatController {
 
         const updatedChat = await prisma.chat.update({
             where: {
-                chat_id,
+                chat_id: parseInt(chat_id),
             },
             data: {
                 chat_users: {
@@ -110,11 +110,11 @@ class ChatController {
     }
 
     async deleteChat(req: Request, res: Response) {
-        const { chat_id } = req.body;
+        const { id } = req.params;
 
         const deletedChat = await prisma.chat.delete({
             where: {
-                chat_id,
+                chat_id: parseInt(id),
             }
         });
 
