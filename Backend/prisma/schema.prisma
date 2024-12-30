@@ -50,6 +50,8 @@ model Message {
   chat_id         Int
   message_content String
   timestamp       DateTime  @default(now())
+  delivered       Boolean   @default(false)
+  seen            Boolean   @default(false) 
 
   sender          User     @relation(fields: [sender_id], references: [user_id])
   chat            Chat     @relation(fields: [chat_id], references: [chat_id])

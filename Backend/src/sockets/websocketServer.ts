@@ -5,22 +5,22 @@ const createWebSocketServer = (server: Server) => {
     const wss = new WebSocketServer({ server });
     let currNumOfUsers: number = 0;
     
-    wss.on('connection', function connection(ws) {
+    wss.on('connection', (client) => {
         currNumOfUsers++;
-        ws.on('error', console.error);
+        client.on('error', console.error);
       
-        ws.on('message', function message(data) {
-            console.log('received: %s', data);
+        client.on('message', (data, isBinary) => {
+            
         });
 
-        ws.on('close', () => {
+        client.on('close', () => {
             console.log(`connection closed`);
             currNumOfUsers--;
             console.log(currNumOfUsers);
         })
 
         console.log(`number of connected: ${currNumOfUsers}`);
-        ws.send('Message from websocket server');
+        client.send('Message from websocket server');
     });
 
     return wss;
