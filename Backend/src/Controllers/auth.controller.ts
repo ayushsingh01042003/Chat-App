@@ -74,7 +74,7 @@ class authController {
             return res
                     .status(200)
                     .cookie('jwt', token, {
-                        sameSite: "strict",
+                        sameSite: "lax",
                         maxAge: 24 * 60 * 60 * 1000,
                         httpOnly: true,
                     })
@@ -94,6 +94,38 @@ class authController {
                 .status(204)
                 .clearCookie('jwt')
                 .send("Logged Out successfully");
+    }
+
+    async verifyUser(req: Request, res: Response) {
+        const jwtCookie = req.cookies.jwt;
+        if(jwtCookie) {
+            try {
+                const decoded: any = jwt.verify(jwtCookie, process.env.JWT_SECRET as string);
+                const user = await prisma.user.findUnique({
+                    where: {
+                        user_id: decoded.user_id
+                    },
+                });
+        
+                if (!user) {
+                    return res.status(404).json({ msg: "User not found" });
+                }
+        
+                return res
+                        .status(200)
+                        .json({ msg: "Token is valid", user });
+            } catch (error) {
+                return res
+                        .status(401)
+                        .json({ msg: "Token is not valid" });
+            }
+        } else {
+            return res
+                    .status(401)
+                    .json({
+                        msg: 'Missing token'
+                    })
+        }
     }
 }
 

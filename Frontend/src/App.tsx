@@ -1,22 +1,42 @@
-import { ThemeProvider } from "./components/theme-provider";
-import Home from "./pages/home/Home";
-import Login from "./pages/login/Login";
-import SignUp from "./pages/signup/SignUp";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import './index.css';
+import Signin from './auth/Signin';
+import Signup from './auth/Signup';
+import Home from './home/Home';
+import Redirect from './auth/Redirect';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import useAuth from './hooks/useAuth';
 
 function App() {
+  const[isAuthenticated, loading] = useAuth();
+
+  const routes = [
+    { path: '/signin', element: <Signin />, public: true },
+    { path: '/signup', element: <Signup />, public: true },
+    { path: '/', element: <Home />, public: false },
+  ]
+
+  if(loading) {
+    return (
+      <div>
+        LOADING....
+      </div>
+    )
+  }
+
   return (
-    <div>      
-      <ThemeProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-          </Routes>
-        </Router>
-      </ThemeProvider>    
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          {routes.map(({path, element, public: isPublic}) => (
+            <Route
+              key={path}
+              path={path}
+              element={isPublic || isAuthenticated ? element : <Redirect />}
+            />
+          ))}
+        </Routes>
+      </BrowserRouter>
+    </>
   )
 }
 

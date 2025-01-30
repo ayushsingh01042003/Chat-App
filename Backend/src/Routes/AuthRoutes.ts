@@ -3,10 +3,12 @@ import authController from '../Controllers/auth.controller';
 
 const router = Router();
 
-router.post('/SignUp', authController.signup);
+router.post('/signup', authController.signup);
 
-router.post('/SignIn', authController.signin);
+router.post('/signin', authController.signin);
 
-router.get('/LogOut', authController.logout);
+router.get('/logout', authController.logout);
+
+router.get('/verify-user', authController.verifyUser);
 
 export default router;
