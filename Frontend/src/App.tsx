@@ -1,8 +1,8 @@
 import './index.css';
-import Signin from './auth/Signin';
-import Signup from './auth/Signup';
-import Home from './home/Home';
-import Redirect from './auth/Redirect';
+import Signin from './pages/Signin';
+import Signup from './pages/Signup';
+import Home from './pages/Home';
+import Redirect from './pages/Redirect';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import useAuth from './hooks/useAuth';
 
