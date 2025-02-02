@@ -35,11 +35,16 @@ class authController {
                 password_hash: hashedPassword,
             };
 
-            await prisma.user.create({
+            const createdUser = await prisma.user.create({
                 data: user
             });
 
-            return res.status(200).send({msg: "User Successfully created"});
+            return res
+                    .status(200)
+                    .send({
+                        msg: "User Successfully created",
+                        user: createdUser,
+                    });
 
         } catch(error) {
             console.log(error);
@@ -80,7 +85,8 @@ class authController {
                     })
                     .send({
                         msg: "Login Successfull",
-                    });   
+                        user: userExists,
+                    });
         } catch (error) {
             res.status(500).send({
                 msg: "Internal Server Error",
