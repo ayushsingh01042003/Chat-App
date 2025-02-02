@@ -1,29 +1,17 @@
-import { useEffect, useState } from "react"
+import { RootState } from "../app/store";
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux";
 
 const useAuth = () => {
-  const[isAuthenticated, setIsAuthenticated] = useState(false);
-  const[loading, setLoading] = useState(true);
-  
-  useEffect(() => {
-    const verify = async () => {
-        try {
-          const res = await fetch('http://localhost:3000/api/auth/verify-user', {
-            credentials: 'include',
-          });
+  const dispatch = useDispatch();
+  const { isAuthenticated, loading } = useSelector((state: RootState) => state.auth);
 
-          if(res.ok) {
-            setIsAuthenticated(true)
-          } else {
-            setIsAuthenticated(false)
-          }
-        } catch (error) {
-            setIsAuthenticated(false);
-        } finally {
-            setLoading(false)
-        }
+  useEffect(() => {
+    const checkAuth = () => {
+      
     }
-    verify();
-  }, [])
+    checkAuth();
+  })
 
   return [isAuthenticated, loading];
 }
