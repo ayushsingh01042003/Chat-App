@@ -7,13 +7,13 @@ interface AuthState {
         email: string
     } | null;
     loading: boolean;
-}
+};
 
 const initialState: AuthState = {
     isAuthenticated: false,
     user: null,
     loading:true
-}
+};
 
 const authSlice = createSlice({
     name: 'auth',
@@ -29,9 +29,9 @@ const authSlice = createSlice({
         logoutUser(state) {
             state.isAuthenticated = false;
             state.user = null;
-        }
+        },
     }
-})
+});
 
-export const { setAuthState, setLoading, logoutUser } = authSlice.actions
+export const { setAuthState, setLoading, logoutUser } = authSlice.actions;
 export default authSlice.reducer;

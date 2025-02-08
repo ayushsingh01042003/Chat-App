@@ -4,11 +4,10 @@ import Signup from './pages/Signup';
 import Home from './pages/Home';
 import Redirect from './pages/Redirect';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useAppSelector } from './app/hooks';
-import { RootState } from './app/store';
+import useAuth from './hooks/useAuth';
 
 function App() {
-  const { isAuthenticated, loading } = useAppSelector((state: RootState) => state.auth);
+  const[isAuthenticated, loading] = useAuth();
 
   const routes = [
     { path: '/signin', element: <Signin />, public: true },
