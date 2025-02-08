@@ -6,9 +6,9 @@ const Redirect = () => {
   return (
     <div>
       <p>You must be logged in to view this</p>
-      <p className="underline text-blue-300" onClick={() => {
-          navigate('/signin')
-      }}>Return to signin?</p>
+      <a href="" className="underline text-blue-300" onClick={() => {
+        navigate('/signin')
+      }}>Return to signin?</a>
     </div>
   )
 }
