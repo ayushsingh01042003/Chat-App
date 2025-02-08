@@ -1,0 +1,23 @@
+name: CI Checks
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  build:
+    name: Build App
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Run TS compiler to build project
+        run: cd Backend && npm run build
