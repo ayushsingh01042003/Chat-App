@@ -1,19 +1,11 @@
 import './index.css';
-import Signin from './pages/Signin';
-import Signup from './pages/Signup';
-import Home from './pages/Home';
 import Redirect from './pages/Redirect';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import useAuth from './hooks/useAuth';
+import routes from './utils/routes';
 
 function App() {
   const[isAuthenticated, loading] = useAuth();
-
-  const routes = [
-    { path: '/signin', element: <Signin />, public: true },
-    { path: '/signup', element: <Signup />, public: true },
-    { path: '/', element: <Home />, public: false },
-  ]
 
   if(loading) {
     return (
