@@ -46,11 +46,11 @@ export const signup = async (username: string, email: string, password: string, 
 
 export const logout = async () => {
     const response = await fetch('http://localhost:3000/api/auth/logout', {
-        method: 'POST',
+        method: 'GET',
         credentials: 'include',
     });
 
-    if (response.ok) {
+    if (response.status === 204) {
         return true;
     }
     throw new Error('Logout failed');
