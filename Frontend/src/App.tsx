@@ -1,18 +1,15 @@
 import './index.css';
-import Redirect from './pages/Redirect';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import useAuth from './hooks/useAuth';
 import routes from './utils/routes';
+import Loading from './components/Loading';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   const[isAuthenticated, loading] = useAuth();
 
   if(loading) {
-    return (
-      <div>
-        LOADING....
-      </div>
-    )
+    return <Loading />
   }
 
   return (
@@ -23,7 +20,11 @@ function App() {
             <Route
               key={path}
               path={path}
-              element={isPublic || isAuthenticated ? element : <Redirect />}
+              element={isPublic ? (element) : (
+                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                  {element}
+                </ProtectedRoute>
+              )}
             />
           ))}
         </Routes>
