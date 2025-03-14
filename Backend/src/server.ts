@@ -6,6 +6,7 @@ import chatRoutes from './Routes/chatRoutes'
 import cors from 'cors';
 import cookieParser from "cookie-parser";
 import createWebSocketServer from "./sockets/websocketServer";
+import promClient from 'prom-client';
 
 const app: Express = express();
 const PORT: number = parseInt(process.env.PORT as string) || 3000;
