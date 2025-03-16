@@ -7,6 +7,7 @@ import cors from 'cors';
 import cookieParser from "cookie-parser";
 import createWebSocketServer from "./sockets/websocketServer";
 import promClient from 'prom-client';
+import authMiddleware from "./middleware/jwtAuth";
 
 const app: Express = express();
 const PORT: number = parseInt(process.env.PORT as string) || 3000;
@@ -19,8 +20,8 @@ app.use(cors({
 }));
 
 app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/chats', chatRoutes);
+app.use('/api/users', authMiddleware, userRoutes);
+app.use('/api/chats', authMiddleware, chatRoutes);
 // app.use('/api/messages', messageRoutes);
 
 const server = app.listen(PORT, () => {
