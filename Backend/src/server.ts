@@ -1,4 +1,4 @@
-import express, { Express } from "express";
+import express, { Express, RequestHandler} from "express";
 import authRoutes from './Routes/AuthRoutes'
 // import messageRoutes from "./Routes/messageRoutes"
 import userRoutes from './Routes/userRoutes';
@@ -7,10 +7,12 @@ import cors from 'cors';
 import cookieParser from "cookie-parser";
 import createWebSocketServer from "./sockets/websocketServer";
 import promClient from 'prom-client';
+import promBundle from 'express-prom-bundle';
 import authMiddleware from "./middleware/jwtAuth";
 
 const app: Express = express();
 const PORT: number = parseInt(process.env.PORT as string) || 3000;
+const metricsMiddleware = promBundle({ includeMethod: true }) as unknown as RequestHandler;
 
 app.use(cookieParser());
 app.use(express.json());
@@ -19,6 +21,7 @@ app.use(cors({
     origin: "http://localhost:5173"
 }));
 
+app.use(metricsMiddleware);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', authMiddleware, userRoutes);
 app.use('/api/chats', authMiddleware, chatRoutes);

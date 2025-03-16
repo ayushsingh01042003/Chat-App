@@ -4,4 +4,4 @@ global:
 scrape_configs:
   - job_name: 'chat_backend'
     static_configs:
-    - targets: ['localhost:3000']
+    - targets: ['chats_backend:3000']
