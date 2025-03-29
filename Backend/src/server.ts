@@ -6,7 +6,6 @@ import chatRoutes from './Routes/chatRoutes'
 import cors from 'cors';
 import cookieParser from "cookie-parser";
 import createWebSocketServer from "./sockets/websocketServer";
-import promClient from 'prom-client';
 import promBundle from 'express-prom-bundle';
 import authMiddleware from "./middleware/jwtAuth";
 
